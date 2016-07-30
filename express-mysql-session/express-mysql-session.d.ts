@@ -7,12 +7,13 @@
 
 declare module "express-mysql-session" {
     import expressSession = require ('express-session');
+    import mysql = require('mysql');
 
     interface ExpressMySQLStore {
-      new(settings : Object) : expressSession.Store
+        new(settings : Object, conn ?: mysql.IConnection) : expressSession.Store
     }
 
-    function expressMysqlSession (es : any  ) : ExpressMySQLStore; 
-    namespace expressMysqlSession {};
+    function expressMysqlSession (es : any) : ExpressMySQLStore;
+    namespace expressMysqlSession{}
     export = expressMysqlSession;
 }
