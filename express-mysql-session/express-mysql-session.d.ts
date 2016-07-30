@@ -9,7 +9,7 @@ declare module "express-mysql-session" {
     import expressSession = require ('express-session');
 
     interface ExpressMySQLStore {
-      new(settings : Object) : ExpressMySQLStore
+      new(settings : Object) : expressSession.Store
     }
 
     function expressMysqlSession (es : any  ) : ExpressMySQLStore; 
