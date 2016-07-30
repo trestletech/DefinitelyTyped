@@ -8,7 +8,11 @@
 declare module "express-mysql-session" {
     import expressSession = require ('express-session');
 
-    function expressMysqlSession (es : any  ) : expressSession.Store;
+    interface ExpressMySQLStore {
+      new(settings : Object) : ExpressMySQLStore
+    }
+
+    function expressMysqlSession (es : any  ) : ExpressMySQLStore; 
     namespace expressMysqlSession {};
     export = expressMysqlSession;
 }
