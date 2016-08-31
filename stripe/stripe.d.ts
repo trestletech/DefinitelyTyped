@@ -14,6 +14,7 @@ interface StripeStatic {
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     bankAccount: StripeBankAccount;
     subscriptions: StripeSubscriptions;
+    customers: StripeCustomers;
 }
 
 interface StripeTokenData {
@@ -85,6 +86,40 @@ interface StripeSubscriptionParams {
     plan: string
 }
 
+interface StripeCustomers
+{
+    create(params: StripeCustomerParams, stripeResponseHandler: (err:Error, customer: StripeCustomer) => void): void;
+    retrieve(id: string, stripeResponseHandler: (err:Error, customer: StripeCustomer) => void): void;
+}
+
+interface StripeCustomerParams {
+    source: string
+    plan: string
+    email: string
+}
+
+interface StripeCustomer {
+    id: string
+    created: number
+    email: string
+    subscriptions: StripeSubscriptionResponse
+}
+
+interface StripeSubscriptionResponse {
+    object: string
+    data: StripeSubscription[]
+    has_more: boolean
+    total_count: number
+    url: string
+}
+
+interface StripeSubscription {
+    id: string
+    created: number,
+    status: string
+    plan: any
+}
+
 interface StripeBankTokenParams
 {
     country: string;
@@ -119,4 +154,3 @@ declare module "stripe" {
     function createStripe(key:string): StripeStatic;
     export = createStripe;
 }
-
