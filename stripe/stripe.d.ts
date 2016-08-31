@@ -13,12 +13,14 @@ interface StripeStatic {
     card: StripeCardData;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     bankAccount: StripeBankAccount;
+    subscriptions: StripeSubscriptions;
 }
 
 interface StripeTokenData {
     number: string;
-    exp_month: number;
-    exp_year: number;
+    exp_month?: number;
+    exp_year?: number;
+    exp?: string;
     cvc?: string;
     name?: string;
     address_line1?: string;
@@ -72,6 +74,17 @@ interface StripeBankAccount
     validateAccountNumber(accountNumber: number | string, countryCode: string): boolean;
 }
 
+
+interface StripeSubscriptions
+{
+    create(params: StripeSubscriptionParams, stripeResponseHandler: (err:Error, subscription: any) => void): void;
+}
+
+interface StripeSubscriptionParams {
+    customer: string
+    plan: string
+}
+
 interface StripeBankTokenParams
 {
     country: string;
@@ -101,7 +114,9 @@ interface StripeBankTokenResponse
     error: StripeError;
 }
 
-declare var Stripe: StripeStatic;
-declare module "Stripe" {
-    export = StripeStatic;
+declare var stripe: StripeStatic;
+declare module "stripe" {
+    function createStripe(key:string): StripeStatic;
+    export = createStripe;
 }
+
