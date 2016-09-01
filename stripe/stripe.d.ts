@@ -79,6 +79,13 @@ interface StripeBankAccount
 interface StripeSubscriptions
 {
     create(params: StripeSubscriptionParams, stripeResponseHandler: (err:Error, subscription: any) => void): void;
+    retrieve(id: string, stripeResponseHandler: (err:Error, subscription: any) => void): void;
+}
+
+interface StripeSubscriptionPlan {
+    id: string
+    amount: number
+    created: number    
 }
 
 interface StripeSubscriptionParams {
@@ -117,7 +124,7 @@ interface StripeSubscription {
     id: string
     created: number,
     status: string
-    plan: any
+    plan: StripeSubscriptionPlan
 }
 
 interface StripeBankTokenParams
