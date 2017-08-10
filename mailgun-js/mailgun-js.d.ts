@@ -11,7 +11,7 @@ declare module MailGun
             to: string,
             subject: string,
             text: string,
-            attachment? : stream,
+            attachment? : stream.Stream,
             'h:Reply-To'? : string,
         }, callback: ( error : Error, body: any ) => void );
     }
